@@ -1,0 +1,72 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div id="paginas" class="page" data-name="altaDispositivo">
+
+  <div class="page-content">
+    <div class="block">
+      <h1>Nuevo Dispositivo</h1>
+
+    <div class="list list-strong-ios list-dividers-ios inset-ios">
+      <ul>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Modelo Equipo</div>
+              <div class="item-input-wrap">
+                <input id="modeloNuevoDispositivo" type="text" name="Modelo Equipo" placeholder="Modelo Equipo" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Número de serie</div>
+              <div class="item-input-wrap">
+                <input id="serialNumberNuevoDispositivo" type="text" name="serialNumber" placeholder="Número de serie"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Número de IMEI</div>
+              <div class="item-input-wrap">
+                <input id="imeiNuevoDispositivo" type="text" name="NúmeroDeIMEI" placeholder="Número de IMEI"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Contraseña</div>
+              <div class="item-input-wrap">
+                <input id="passNuevoDispositivo" type="text" name="Contraseña" placeholder="Contraseña" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Ingreso por:</div>
+              <div class="item-input-wrap">
+                <select id="motivoNuevoDispositivo" name="Ingreso">
+                  <option value="Reparacion" selected="selected">Reparación</option>
+                  <option value="Venta">Venta</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
+    <button id="btnAddDispositivo" class="button button-small button-fill btnVisible">Añadir Dispositivo</button>
+    <br>
+    <a class="button button-small button-fill" href="/index/">Volver</a>
+    <br>
+    
+  </div>
+</div>

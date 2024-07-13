@@ -1,0 +1,54 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div id="paginas" class="page" data-name="products">
+
+  <div class="page-content">
+    <div class="block">
+      <h1>Clientes</h1>
+      <div class="cajaFiltroOrden">
+        <div class="cajaFiltros">
+          <div id="cajaFiltroNombre" class="item-inner btnOculto">
+            <div class="item-title item-label">Nombre</div>
+            <div class="item-input-wrap input-dropdown-wrap">
+              <input id="filtroNombre" type="text" placeholder="Nombre">
+            </div>
+          </div>
+
+        </div>
+        <div id="cajaOrdenar" class="item-inner btnOculto">
+          <div class="item-title item-label">Ordenar por:</div>
+          <div class="item-input-wrap input-dropdown-wrap">
+            <select id="ordenBy" placeholder="Seleccionar proveedor">
+              <option selected value="Proveedor">Proveedor</option>
+              <option value="PrecioMenMay">Precio Menor > Mayor</option>
+              <option value="PrecioMayMen">Precio Mayor > Menor</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="cajaTablaProductos" class="data-table elementoOculto">
+        <table>
+          <thead>
+            <tr>
+              <th class="label-cell">Clientes</th>
+              <th class="numeric-cell">Nombre</th>
+              <th class="numeric-cell">Teléfono</th>
+              <th class="numeric-cell">Mail</th>
+              <th class="numeric-cell">DNI/CUIT</th>
+              <th class="medium-only">Dirección</th>
+            </tr>
+          </thead>
+          <tbody id="tableProducts"></tbody>
+        </table>
+      </div>
+
+
+      <button id="btnListProduct" class="button button-small button-fill btnVisible">Listar Clientes</button>
+      <br>
+      <br>
+      <a class="button button-small button-fill" href="/index/">Volver</a>
+
+    </div>
+  </div>
+</div>
