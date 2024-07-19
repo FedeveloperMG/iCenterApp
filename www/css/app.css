@@ -815,4 +815,24 @@ code {
   background-color: #889db6;
   margin: 20px;
 }
-
+.cajaFiltros{
+  display: flex;
+  flex-direction: row;
+}
+#cajaFiltroNombre{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+#filtroTel{
+  border: #000 solid 1px;
+}
+.btnVisible{
+  visibility:visible;
+}
+.btnOculto{
+  display: none;
+  visibility:hidden;
+}

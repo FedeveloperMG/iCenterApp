@@ -1,0 +1,110 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div id="paginas" class="page" data-name="nuevaOrden">
+
+  <div class="page-content">
+    <div class="block">
+    <h1>Nueva orden de servicio</h1>
+
+    <div class="list list-strong-ios list-dividers-ios inset-ios">
+      <ul>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Número de serie</div>
+              <div class="item-input-wrap">
+                <select id="serialNuevaOrden" name="Número de serie">
+                  <option value="---" >---</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Modelo Equipo</div>
+              <div class="item-input-wrap">
+                <select id="modeloNuevaOrden" name="Modelo Equipo">
+                  <option value="---" >---</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Número de IMEI</div>
+              <div class="item-input-wrap">
+                <select id="imeiNuevaOrden" name="Número de IMEI">
+                  <option value="---" >---</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Apple ID</div>
+              <div class="item-input-wrap">
+                <select id="appleIDNuevaOrden" name="Apple ID">
+                  <option value="---" >---</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Contraseña Apple ID</div>
+              <div class="item-input-wrap">
+                <input id="contrasenaAppleIDNuevaOrden" type="text" name="Contraseña Apple ID" placeholder="Contraseña Apple ID" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Defecto</div>
+              <div class="item-input-wrap">
+                <select id="defectoNuevaOrden" name="Defecto">
+                  <option value="---" >---</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Contraseña Teléfono</div>
+              <div class="item-input-wrap">
+                <input id="contrasenaTelNuevaOrden" type="text" name="Contraseña Teléfono" placeholder="Contraseña Teléfono" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Notas</div>
+              <div class="item-input-wrap">
+                <input id="notasNuevaOrden" type="text" name="Nota" placeholder="Nota" />
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+        
+    <button id="btnCargarOrden" class="button button-small button-fill btnVisible">Cargar Orden</button>
+    <br>
+    <a class="button button-small button-fill" href="/index/">Volver</a>
+    <br>
+    
+  </div>
+</div>
