@@ -3,108 +3,458 @@
 
   <div class="page-content">
     <div class="block">
-    <h1>Nueva orden de servicio</h1>
+      <h1>Nueva orden de servicio</h1>
 
-    <div class="list list-strong-ios list-dividers-ios inset-ios">
-      <ul>
-        <li>
-          <div class="item-content item-input">
-            <div class="item-inner">
-              <div class="item-title item-label">Número de serie</div>
-              <div class="item-input-wrap">
-                <select id="serialNuevaOrden" name="Número de serie">
-                  <option value="---" >---</option>
-                </select>
+      <div class="list list-strong-ios list-dividers-ios inset-ios">
+        <ul>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Número de serie</div>
+                <div class="item-input-wrap">
+                  <select id="serialNuevaOrden" name="Número de serie">
+                    <option value="---">---</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content item-input">
-            <div class="item-inner">
-              <div class="item-title item-label">Modelo Equipo</div>
-              <div class="item-input-wrap">
-                <select id="modeloNuevaOrden" name="Modelo Equipo">
-                  <option value="---" >---</option>
-                </select>
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Modelo Equipo</div>
+                <div class="item-input-wrap">
+                  <select id="modeloNuevaOrden" name="Modelo Equipo">
+                    <option value="---">---</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content item-input">
-            <div class="item-inner">
-              <div class="item-title item-label">Número de IMEI</div>
-              <div class="item-input-wrap">
-                <select id="imeiNuevaOrden" name="Número de IMEI">
-                  <option value="---" >---</option>
-                </select>
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Número de IMEI</div>
+                <div class="item-input-wrap">
+                  <select id="imeiNuevaOrden" name="Número de IMEI">
+                    <option value="---">---</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content item-input">
-            <div class="item-inner">
-              <div class="item-title item-label">Apple ID</div>
-              <div class="item-input-wrap">
-                <select id="appleIDNuevaOrden" name="Apple ID">
-                  <option value="---" >---</option>
-                </select>
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Apple ID</div>
+                <div class="item-input-wrap">
+                  <select id="appleIDNuevaOrden" name="Apple ID">
+                    <option value="---">---</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content item-input">
-            <div class="item-inner">
-              <div class="item-title item-label">Contraseña Apple ID</div>
-              <div class="item-input-wrap">
-                <input id="contrasenaAppleIDNuevaOrden" type="text" name="Contraseña Apple ID" placeholder="Contraseña Apple ID" />
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Contraseña Apple ID</div>
+                <div class="item-input-wrap">
+                  <input id="contrasenaAppleIDNuevaOrden" type="text" name="Contraseña Apple ID"
+                    placeholder="Contraseña Apple ID" />
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content item-input">
-            <div class="item-inner">
-              <div class="item-title item-label">Defecto</div>
-              <div class="item-input-wrap">
-                <select id="defectoNuevaOrden" name="Defecto">
-                  <option value="---" >---</option>
-                </select>
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Defecto</div>
+                <div class="item-input-wrap">
+                  <select id="defectoNuevaOrden" name="Defecto">
+                    <option value="---">---</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content item-input">
-            <div class="item-inner">
-              <div class="item-title item-label">Contraseña Teléfono</div>
-              <div class="item-input-wrap">
-                <input id="contrasenaTelNuevaOrden" type="text" name="Contraseña Teléfono" placeholder="Contraseña Teléfono" />
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Contraseña Teléfono</div>
+                <div class="item-input-wrap">
+                  <input id="contrasenaTelNuevaOrden" type="text" name="Contraseña Teléfono"
+                    placeholder="Contraseña Teléfono" />
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content item-input">
-            <div class="item-inner">
-              <div class="item-title item-label">Notas</div>
-              <div class="item-input-wrap">
-                <input id="notasNuevaOrden" type="text" name="Nota" placeholder="Nota" />
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Notas</div>
+                <div class="item-input-wrap">
+                  <input id="notasNuevaOrden" type="text" name="Nota" placeholder="Nota" />
+                </div>
               </div>
             </div>
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Detalle del problema</div>
+                <div class="item-input-wrap">
+                  <input id="infoClienteNuevaOrden" type="text" name="Detalle del problema" placeholder="" />
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Urgencia</div>
+                <div class="item-input-wrap">
+                  <select id="urgenciaNuevaOrden" name="Urgencia">
+                    <option value="---">---</option>
+                    <option value="BAJA">BAJA</option>
+                    <option value="MEDIA">MEDIA</option>
+                    <option value="ALTA">ALTA</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="radios">
+          <h3>Chequeo General</h3>
+          <div class="list cajaRadios">
+            <h4>¿Enciende?</h4>
+            <ul class="listaRadios">
+              <!-- Single radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Radio input -->
+                  <input id="radio1" type="radio" name="my-radio1" value="Enciende" />
+                  <!-- Radio icon -->
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <!-- Radio Title -->
+                    <div class="item-title">SI</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Checked by default -->
+                  <input id="radio2" type="radio" name="my-radio1" value="No enciende" />
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <div class="item-title">NO</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
           </div>
-        </li>
-      </ul>
+          <div class="list cajaRadios">
+            <h4>¿La pantalla está sana?</h4>
+            <ul class="listaRadios">
+              <!-- Single radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Radio input -->
+                  <input id="radio3" type="radio" name="my-radio2" value="Pantalla sana" />
+                  <!-- Radio icon -->
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <!-- Radio Title -->
+                    <div class="item-title">SI</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Checked by default -->
+                  <input id="radio4" type="radio" name="my-radio2" value="Pantalla rota" />
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <div class="item-title">NO</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="list cajaRadios">
+            <h4>¿Funciona la cámara trasera?</h4>
+            <ul class="listaRadios">
+              <!-- Single radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Radio input -->
+                  <input id="radio5" type="radio" name="my-radio3" value="Camara trasera funciona" />
+                  <!-- Radio icon -->
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <!-- Radio Title -->
+                    <div class="item-title">SI</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Checked by default -->
+                  <input id="radio6" type="radio" name="my-radio3" value="Camara trasera no funciona" />
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <div class="item-title">NO</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="list cajaRadios">
+            <h4>¿Funciona la cámara frontal?</h4>
+            <ul class="listaRadios">
+              <!-- Single radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Radio input -->
+                  <input id="radio7" type="radio" name="my-radio4" value="Camara frontal funciona" />
+                  <!-- Radio icon -->
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <!-- Radio Title -->
+                    <div class="item-title">SI</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Checked by default -->
+                  <input id="radio8" type="radio" name="my-radio4" value="Camara frontal no funciona" />
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <div class="item-title">NO</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="list cajaRadios">
+            <h4>¿El botón home hace click?</h4>
+            <ul class="listaRadios">
+              <!-- Single radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Radio input -->
+                  <input id="radio9" type="radio" name="my-radio5" value="Botón home funciona" />
+                  <!-- Radio icon -->
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <!-- Radio Title -->
+                    <div class="item-title">SI</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Checked by default -->
+                  <input id="radio10" type="radio" name="my-radio5" value="Botón home no funciona" />
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <div class="item-title">NO</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="list cajaRadios">
+            <h4>¿El botón home lee la huella?</h4>
+            <ul class="listaRadios">
+              <!-- Single radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Radio input -->
+                  <input id="radio11" type="radio" name="my-radio6" value="Botón home lee huella" />
+                  <!-- Radio icon -->
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <!-- Radio Title -->
+                    <div class="item-title">SI</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Checked by default -->
+                  <input id="radio12" type="radio" name="my-radio6" value="Botón home no lee huella" />
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <div class="item-title">NO</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="list cajaRadios">
+            <h4>¿La carcasa está en buenas condiciones?</h4>
+            <ul class="listaRadios">
+              <!-- Single radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Radio input -->
+                  <input id="radio13" type="radio" name="my-radio7" value="Carcasa ok" />
+                  <!-- Radio icon -->
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <!-- Radio Title -->
+                    <div class="item-title">SI</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Checked by default -->
+                  <input id="radio14" type="radio" name="my-radio7" value="Carcasa no ok" />
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <div class="item-title">NO</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="list cajaRadios">
+            <h4>¿Tiene señal de teléfono?</h4>
+            <ul class="listaRadios">
+              <!-- Single radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Radio input -->
+                  <input id="radio15" type="radio" name="my-radio8" value="Tiene señal teléfono" />
+                  <!-- Radio icon -->
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <!-- Radio Title -->
+                    <div class="item-title">SI</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Checked by default -->
+                  <input id="radio16" type="radio" name="my-radio8" value="No tiene señal teléfono" />
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <div class="item-title">NO</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="list cajaRadios">
+            <h4>¿Tiene señal de wifi?</h4>
+            <ul class="listaRadios">
+              <!-- Single radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Radio input -->
+                  <input id="radio17" type="radio" name="my-radio9" value="Tiene señal wifi" />
+                  <!-- Radio icon -->
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <!-- Radio Title -->
+                    <div class="item-title">SI</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Checked by default -->
+                  <input id="radio18" type="radio" name="my-radio9" value="No tiene señal wifi" />
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <div class="item-title">NO</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="list cajaRadios">
+            <h4>¿Los botones de volumen y silencio funcionan?</h4>
+            <ul class="listaRadios">
+              <!-- Single radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Radio input -->
+                  <input id="radio19" type="radio" name="my-radio10" value="Botones vol/sil funcionan" />
+                  <!-- Radio icon -->
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <!-- Radio Title -->
+                    <div class="item-title">SI</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Checked by default -->
+                  <input id="radio20" type="radio" name="my-radio10" value="Botones vol/sil no funcionan" />
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <div class="item-title">NO</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="list cajaRadios">
+            <h4>¿El botón de power funciona?</h4>
+            <ul class="listaRadios">
+              <!-- Single radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Radio input -->
+                  <input id="radio21" type="radio" name="my-radio11" value="Botón power funciona" />
+                  <!-- Radio icon -->
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <!-- Radio Title -->
+                    <div class="item-title">SI</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another radio item -->
+              <li>
+                <label class="item-radio item-content">
+                  <!-- Checked by default -->
+                  <input id="radio22" type="radio" name="my-radio11" value="Botón power no funciona" />
+                  <i class="icon icon-radio"></i>
+                  <div class="item-inner">
+                    <div class="item-title">NO</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <button id="prueba" class="button button-small button-fill btnVisible">Prueba</button>
+      <button id="btnCargarOrden" class="button button-small button-fill btnVisible">Cargar Orden</button>
+      <br>
+      <a class="button button-small button-fill" href="/funcionesAdmin/">Volver</a>
+      <br>
+
     </div>
-
-        
-    <button id="btnCargarOrden" class="button button-small button-fill btnVisible">Cargar Orden</button>
-    <br>
-    <a class="button button-small button-fill" href="/index/">Volver</a>
-    <br>
-    
   </div>
-</div>

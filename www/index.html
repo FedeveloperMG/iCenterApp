@@ -59,37 +59,62 @@
                         <h1>iCenter</h1>
                         <!-- --------------------------------- -- ---------------------------------- -->
 
-                        <!-- ------------------------ Tarjetas de funciones ------------------------ -->
-                        <div class="card-content">
-                            <div class="list media-list no-safe-areas">
-                              <ul>
-                                <a id="toAddCliente" class="item-content tarjetaItem" href="/altaCliente/">
-                                  <div class="item-media"><img src="./img/clientes.png" width="44" />
-                                  </div>
-                                  <div class="item-inner">
-                                    <div class="item-title-row">
-                                      <div class="item-title">Añadir Clientes</div>
-                                    </div>
-                                    <div class="item-subtitle">Dar de alta un nuevo cliente</div>
-                                  </div>
-                                </a>
-                                <a id="toAddOrdenDeServicios" class="item-content tarjetaItem" href="/altaOrdenesDeServicio/">
-                                  <div class="item-media"><img src="./img/clientes.png" width="44" />
-                                  </div>
-                                  <div class="item-inner">
-                                    <div class="item-title-row">
-                                      <div class="item-title">Añadir Orden de servicio</div>
-                                    </div>
-                                    <div class="item-subtitle">Crear una nueva de servicio</div>
-                                  </div>
-                                </a>
-                              </ul>
+                        <!-- ------------------------ Ingreso de usuario ------------------------ -->
+                        <form action="">
+                            <div id="cajaUsuario" class="grid grid-cols-1">
+                                <div class="list list-strong-ios list-dividers-ios inset-ios">
+                                    <ul>
+                                        <li class="item-content item-input">
+                                            <div class="item-media">
+                                                <i class="icon demo-list-icon"></i>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div id="indexEtiqlUser" class="item-title item-label">Nombre de usuario
+                                                </div>
+                                                <div class="item-input-wrap">
+                                                    <input id="indexInputUser" type="email"
+                                                        placeholder="Ingrese su usuario" required validate
+                                                        autocomplete="username">
+                                                    <span class="input-clear-button"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                         </div>
-                       
-                       <!-- --------------------------------- Fin --------------------------------- -->
-                        
-                        
+                            <!-- ------------------------ Ingreso de contraseña ------------------------ -->
+                            <div class="grid grid-cols-1">
+                                <div class="list list-strong-ios list-dividers-ios inset-ios">
+                                    <ul>
+                                        <li class="item-content item-input">
+                                            <div class="item-media">
+                                                <i class="icon demo-list-icon"></i>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div id="indexEtiqPass" class="item-title item-label">Contraseña</div>
+                                                <div class="item-input-wrap">
+                                                    <input id="indexInputPass" type="password" name="password"
+                                                        id="demo-password-1" placeholder="Ingrese su contraseña"
+                                                        required validate autocomplete="new-password" />
+                                                    <span class="input-clear-button"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li id="cajaValidacion">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- ---------------------- Boton de inicio de sesión ---------------------- -->
+                        <div class="grid grid-cols-1 grid-gap">
+                            <a id="btnInicioSesion" class="button button-large button-fill button-preloader"
+                                class="list-button">Iniciar Sesión</a>
+                        </div>
+
+                        <!-- --------------------------------- Fin --------------------------------- -->
+
+
                     </div>
                 </div>
             </div>
@@ -109,7 +134,7 @@
     <!-- ------------------------------ Firebase Local------------------------------- -->
     <script src="./js/firebase.js"></script>
     <!-- ------------------------------- Cordova ------------------------------- -->
-    <!-- <script type="text/javascript" src="cordova.js"></script> -->
+    <script type="text/javascript" src="cordova.js"></script>
     <!-- ------------------------------- F7 ------------------------------- -->
     <script type="text/javascript" src="./lib/framework7/framework7-bundle.min.js"></script>
     <!--<script type="text/javascript" src="lib/framework7/framework7.js"></script>-->

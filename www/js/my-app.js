@@ -15,6 +15,7 @@ var app = new Framework7({
   // Add default routes
   routes: [
     { path: '/index/', url: 'index.html', options: { transition: 'f7-cover' } },
+    { path: '/funcionesAdmin/', url: 'funcionesAdmin.html', options: { transition: 'f7-cover' } },
     { path: '/altaCliente/', url: 'altaCliente.html', options: { transition: 'f7-cover' } },
     { path: '/altaDispositivo/', url: 'altaDispositivo.html', options: { transition: 'f7-cover' } },
     { path: '/altaOrdenesDeServicio/', url: 'altaOrdenesDeServicio.html', options: { transition: 'f7-cover' } },
@@ -34,7 +35,12 @@ $$(document).on('deviceready', function () {
 $$(document).on('page:init', function (e) {
 })
 
+
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
+  $$("#btnInicioSesion").on('click', inicioSesion)
+})
+
+$$(document).on('page:init', '.page[data-name="funcionesAdmin"]', function (e) {
 })
 
 $$(document).on('page:init', '.page[data-name="altaCliente"]', function (e) {
@@ -50,14 +56,23 @@ $$(document).on('page:init', '.page[data-name="nuevaOrden"]', function (e) {
   traerSerialsDispositivos();
   $$("#serialNuevaOrden").on('change', traerDatosDispositivo)
   $$("#btnCargarOrden").on('click', cargarNuevaOrden)
+  $$("#prueba").on('click', algo)
 })
 
+function algo() {
+  //if ($$(`input[type='radio']:checked`).length == 11 && $$(`input[type='select']`).val() !== "---" && $$(`input[type='text']`).val() !== ""){
+    console.log("campos incompletos");
+    console.log($$(`input[type='select']`).val());
+    console.log( $$(`input[type='text']`).val());
+  //}
+}
 
 /* -------------------------------- Variables db ------------------------------- */
 
 db = firebase.firestore()
 var colClientes = db.collection('Clientes')
 var colOrdenesServicio = db.collection('OrdenesServicio')
+var colPersonal = db.collection('Personal')
 
 /* --------------------------- Variables globales --------------------------- */
 //Variable Fecha
@@ -70,6 +85,68 @@ var idCliente
 var serialNumberNuevoEquipo, modeloNuevoEquipo, passwordNuevoEquipo, motivoIngresoNuevoEquipo, imeiNuevoDispositivo
 
 /* -------------------------------- Funciones ------------------------------- */
+//Función para iniciar sesión
+function inicioSesion() {
+  emailSession = $$("#indexInputUser").val()
+  passwordSession = $$("#indexInputPass").val()
+
+  if (emailSession != "" && passwordSession != "") {
+
+
+    firebase.auth().signInWithEmailAndPassword(emailSession, passwordSession)
+      .then((userCredential) => {
+        // Signed in
+        var user = userCredential.user;
+
+        //Validando Role
+        var sessionId = emailSession
+        colPersonal.where("user", "==", sessionId).get()
+          .then(function (res) {
+            res.forEach(function (doc) {
+              roleSession = doc.data().rol
+
+              //Ingreso dependiendo del role de usuario
+              if (roleSession == "admin") {
+                setTimeout(() => {
+                  mainView.router.navigate("/funcionesAdmin/")
+                }, 3000)
+              } else if (roleSession == "tecnico") {
+                mainView.router.navigate('/loggedIn/');
+                setTimeout(() => {
+                  mainView.router.navigate("/modoComplejo/")
+                }, 3000)
+              } else if (roleSession == "dev") {
+                setTimeout(() => {
+                  mainView.router.navigate('/funcionesAdmin/')
+                }, 3000)
+              }
+            })
+          })
+          .catch(function (error) {
+            console.log("Error: " + error)
+          }) 
+      })
+      .catch((error) => {
+
+        if (error.message == "The email address is badly formatted.") {
+          $$("#cajaValidacion").html(`<h3>El email ingresado posee un formato incorrecto</h3>`)
+        } else {
+          errorJson = JSON.parse(error.message);
+          var errorCode = errorJson.error.code;
+          var errorMessage = errorJson.error.message;
+
+          if (errorMessage == `INVALID_LOGIN_CREDENTIALS`) {
+            $$("#cajaValidacion").html("<h3>El email o la contraseña son incorrectos</h3>")
+          } else {
+            console.log(errorCode);
+          }
+        }
+      })
+      ;
+  }
+}
+
+
 //Función para obtener fecha (ID ORDEN DE SERVICIO)
 function tomarFecha() {
   var fechaActual = new Date();
@@ -83,7 +160,7 @@ function tomarFecha() {
       var minutos = ('0' + fechaActual.getMinutes()).slice(1);
       var segundos = ('0' + fechaActual.getSeconds()).slice(1);
 
-      fecha = dia + mes + año + hora + minutos + segundos;
+      fecha = dia +"-"+ mes +"-"+ año +"-"+ hora +":"+ minutos +":"+ segundos;
 }
 
 //Funcion para resetear variables
@@ -192,7 +269,6 @@ function añadirNuevoDispositivo() {
 //Función para buscar cliente
 function buscarCliente () {
   idCliente = $$("#filtroTel").val()
-  console.log(idCliente);
   
   colClientes.where("IDCliente","==",idCliente).get()
   .then(function(res) {
@@ -202,7 +278,6 @@ function buscarCliente () {
     res.forEach(function (doc){
       data = doc.data()
       id = doc.id
-      console.log(data);
       
       $$("#cajaTabla").html(`
       
@@ -246,7 +321,6 @@ function traerSerialsDispositivos() {
     res.forEach(function(doc){
       dataDispositivo = doc.data()
       serials.push(dataDispositivo.SerialNumber)
-      console.log(serials);
     })
     
     for(i = 0; i < serials.length; i++){
@@ -294,6 +368,21 @@ function cargarNuevaOrden() {
   contrasenaTelNuevaOrden = $$("#contrasenaTelNuevaOrden").val()
   defectoNuevaOrden = $$("#defectoNuevaOrden").val()
   notasNuevaOrden = $$("#notasNuevaOrden").val()
+  infoClienteNuevaOrden = $$("#infoClienteNuevaOrden").val()
+  urgenciaNuevaOrden = $$("#urgenciaNuevaOrden").val()
+
+  checklist = []
+
+  for (i = 1; i < 23; i++) {
+    if ($$(`#radio${i}`)[0].checked){
+    valor = $$(`#radio${i}`).val()
+    checklist.push(valor)
+  }}
+    
+  estadoDispositivo = checklist.join("; ")
+
+
+  tomarFecha()
 
   nuevaOrden = {
     NroSerie: serialNuevaOrden,
@@ -303,11 +392,19 @@ function cargarNuevaOrden() {
     ContrasenaAppleID: contrasenaAppleIDNuevaOrden,
     ContrasenaTel: contrasenaTelNuevaOrden,
     Defecto: defectoNuevaOrden,
-    Notas: notasNuevaOrden
+    Notas: notasNuevaOrden,
+    InfoCliente: infoClienteNuevaOrden,
+    //Recibio: userLogged,
+    //Urgencia: urgenciaNuevaOrden,
+    FechaIngreso: fecha,
+    TrabajoAsignadoA: "",
+    Estado: "Ingresado",
+    EntregaEstimada: "",
+    EstadoDispositivo: estadoDispositivo
+
   }
 
-  tomarFecha()
-
+  if ($$(`input[type='radio']:checked`).length == 11) {
   colOrdenesServicio.doc(fecha).set(nuevaOrden)
   .then(function(response) {
     console.log("Se cargo la nueva orden de servicio correctamente")
@@ -319,6 +416,8 @@ function cargarNuevaOrden() {
     .catch(function(err){console.log(err);})
   })
   .catch(function(err){console.log(err);})
+}else{
 
+  app.dialog.alert("¡Complete todos los campos del formulario!")
 }
-
+}
