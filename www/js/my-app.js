@@ -20,6 +20,9 @@ var app = new Framework7({
     { path: '/altaDispositivo/', url: 'altaDispositivo.html', options: { transition: 'f7-cover' } },
     { path: '/altaOrdenesDeServicio/', url: 'altaOrdenesDeServicio.html', options: { transition: 'f7-cover' } },
     { path: '/nuevaOrden/', url: 'nuevaOrden.html', options: { transition: 'f7-cover' } },
+    { path: '/funcionesTecnico/', url: 'funcionesTecnico.html', options: { transition: 'f7-cover' } },
+    { path: '/ordenesActivas/', url: 'ordenesActivas.html', options: { transition: 'f7-cover' } },
+    { path: '/detalleOrden/', url: 'detalleOrden.html', options: { transition: 'f7-cover' } },
   ]
   // ... other parameters
 });
@@ -38,9 +41,12 @@ $$(document).on('page:init', function (e) {
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$("#btnInicioSesion").on('click', inicioSesion)
+  //$$("#prueba").on('click', algo)
 })
 
 $$(document).on('page:init', '.page[data-name="funcionesAdmin"]', function (e) {
+})
+$$(document).on('page:init', '.page[data-name="funcinesTecnico"]', function (e) {
 })
 
 $$(document).on('page:init', '.page[data-name="altaCliente"]', function (e) {
@@ -54,18 +60,35 @@ $$(document).on('page:init', '.page[data-name="altaOrdenesDeServicio"]', functio
 })
 $$(document).on('page:init', '.page[data-name="nuevaOrden"]', function (e) {
   traerSerialsDispositivos();
+  traerDefectos()
   $$("#serialNuevaOrden").on('change', traerDatosDispositivo)
   $$("#btnCargarOrden").on('click', cargarNuevaOrden)
-  $$("#prueba").on('click', algo)
+  
+})
+$$(document).on('page:init', '.page[data-name="ordenesActivas"]', function (e) {
+  listarOrdenes()
+})
+$$(document).on('page:init', '.page[data-name="detalleOrden"]', function (e) {
+  verDatosOrden()
 })
 
-function algo() {
-  //if ($$(`input[type='radio']:checked`).length == 11 && $$(`input[type='select']`).val() !== "---" && $$(`input[type='text']`).val() !== ""){
-    console.log("campos incompletos");
-    console.log($$(`input[type='select']`).val());
-    console.log( $$(`input[type='text']`).val());
-  //}
-}
+/* function algo() {
+  defectos = []
+  colDefectos.get()
+  .then(function(res) {
+    res.forEach(function(doc){
+      datos = doc.id
+      defectos.push(datos)
+      console.log(datos);
+    })
+    console.log(defectos);
+    for (i = 0; i < defectos.length; i++) {
+      $$("#defectoNuevaOrden").append(`<option value="${defectos[i]}">${defectos[i]}</option>`)      
+    }
+  
+  })
+  .catch(function(err){console.log(err);})
+} */
 
 /* -------------------------------- Variables db ------------------------------- */
 
@@ -73,6 +96,7 @@ db = firebase.firestore()
 var colClientes = db.collection('Clientes')
 var colOrdenesServicio = db.collection('OrdenesServicio')
 var colPersonal = db.collection('Personal')
+var colDefectos = db.collection('Defectos')
 
 /* --------------------------- Variables globales --------------------------- */
 //Variable Fecha
@@ -83,6 +107,8 @@ var nombreNuevoCliente, apellidoNuevoCliente, emailNuevoCliente, tel1NuevoClient
 var idCliente
 //Variables nuevo dispositivo
 var serialNumberNuevoEquipo, modeloNuevoEquipo, passwordNuevoEquipo, motivoIngresoNuevoEquipo, imeiNuevoDispositivo
+//Variables Orden de servicio
+var infoDeLaOrden, verDatosOrden
 
 /* -------------------------------- Funciones ------------------------------- */
 //Función para iniciar sesión
@@ -111,9 +137,8 @@ function inicioSesion() {
                   mainView.router.navigate("/funcionesAdmin/")
                 }, 3000)
               } else if (roleSession == "tecnico") {
-                mainView.router.navigate('/loggedIn/');
                 setTimeout(() => {
-                  mainView.router.navigate("/modoComplejo/")
+                  mainView.router.navigate("/funcionesTecnico/")
                 }, 3000)
               } else if (roleSession == "dev") {
                 setTimeout(() => {
@@ -261,7 +286,7 @@ function añadirNuevoDispositivo() {
   colClientes.doc(idCliente).collection("Dispositivos").doc(serialNumberNuevoEquipo).set(dispositivo)
   .then(function(response) {
     console.log("Se añadió el nuevo dispositivo correctamente");
-    mainView.router.navigate("/index/")
+    mainView.router.navigate("/funcionesAdmin/")
   })
   .catch(function(err){console.log(err);})
 }
@@ -299,6 +324,7 @@ function buscarCliente () {
               <td>${data.Tel1}</td>
               <td>${data.Direccion}</td>
               <td><a href="/nuevaOrden/"><input id="nuevaOrden" type="button" value="Nueva Orden" class="button button-small button-round button-fill color-green"></a></td>
+              <td><a href="/ordenesActivas/"><input id="ordenesActivas" type="button" value="Ordenes Activas" class="button button-small button-round button-fill color-black"></a></td>
             </tbody>
           </table>
         </div>
@@ -356,7 +382,27 @@ function traerDatosDispositivo() {
   })
   .catch(function(err){console.log(err);})
 }
+
 }
+//Función para traer defectos desde db
+function traerDefectos() {
+  defectos = []
+  colDefectos.get()
+  .then(function(res) {
+    res.forEach(function(doc){
+      datos = doc.id
+      defectos.push(datos)
+      console.log(datos);
+    })
+    console.log(defectos);
+    for (i = 0; i < defectos.length; i++) {
+      $$("#defectoNuevaOrden").append(`<option value="${defectos[i]}">${defectos[i]}</option>`)      
+    }
+  
+  })
+  .catch(function(err){console.log(err);})
+}
+
 
 //Función para cargar orden de servicio
 function cargarNuevaOrden() {
@@ -409,9 +455,12 @@ function cargarNuevaOrden() {
   .then(function(response) {
     console.log("Se cargo la nueva orden de servicio correctamente")
 
-    colClientes.doc(idCliente).collection("OrdenesDeServicio").doc(fecha).set({OrdenDeServicio: fecha})
+    colClientes.doc(idCliente).collection("OrdenesDeServicio").doc(fecha).set({OrdenDeServicio: fecha, Estado: "activa"})
     .then(function(response) {
       console.log("Se cargo la nueva orden de servicio en el cliente correctamente");
+
+      mainView.router.navigate("/funcionesAdmin/")
+
   })
     .catch(function(err){console.log(err);})
   })
@@ -421,3 +470,90 @@ function cargarNuevaOrden() {
   app.dialog.alert("¡Complete todos los campos del formulario!")
 }
 }
+
+//Función para mostrar lista de ordenes activas
+function listarOrdenes (){
+
+  ordenes = []
+
+    colClientes.doc(idCliente).collection("OrdenesDeServicio").where("Estado","==","activa").get()
+    .then(function(response) {
+      response.forEach(doc => {
+
+        console.log(doc.id);
+        console.log(doc.data());
+
+        ordenes.push(doc.id);
+
+      })
+
+      for (i = 0; i < ordenes.length; i++) {
+        btnOrdenesActivas = $$(`
+            <a id="${ordenes[i]}" class="item-content tarjetaItemOA popup-open" data-popup=".popup-orden">
+                <div class="item-media"><img src="./img/clientes.png" width="44" />
+                </div>
+                <div class="item-inner">
+                  <div class="item-title-row">
+                    <div class="item-title">Orden N° - ${ordenes[i]}</div>
+                  </div>
+                  <div class="item-subtitle">Ver Orden</div>
+                </div>
+            </a>`)
+
+            {/* <a class="button button-fill popup-open" data-popup=".popup-orden">ABRIR ORDEN
+              <a id="${ordenes[i]}" class="item-content tarjetaItemOA">
+                <div class="item-media"><img src="./img/clientes.png" width="44" />
+                </div>
+                <div class="item-inner">
+                  <div class="item-title-row">
+                    <div class="item-title">Orden N° - ${ordenes[i]}</div>
+                  </div>
+                  <div class="item-subtitle">Ver Orden</div>
+                </div>
+              </a>
+            </a> */}
+
+          btnOrdenesActivas.data("valorId", `${ordenes[i]}`)
+          
+          $$("#listaOrdenes").append(btnOrdenesActivas)
+            
+            btnOrdenesActivas.data("valorId", `${ordenes[i]}`)
+      
+            btnOrdenesActivas.on("click", function () {
+              var dataId = $$(this).data("valorId")
+              
+              colOrdenesServicio.doc(dataId).get()
+              .then(function(res){
+                
+                infoDeLaOrden = res._delegate._document.data.value.mapValue.fields
+                
+                problemaOrden = infoDeLaOrden.Defecto.stringValue
+
+               function datosOrden() {
+                 $$("#tituloOrden").text(`${dataId}`)
+                  $$("#infoOrden").html(`
+                    <h4>Modelo: ${infoDeLaOrden.Modelo.stringValue}</h4>
+                    <h4>Numero de serie: ${infoDeLaOrden.NroSerie.stringValue}</h4>
+                    <h4>Apple ID: ${infoDeLaOrden.AppleID.stringValue}</h4>
+                    <h4>Password Apple ID: ${infoDeLaOrden.ContrasenaAppleID.stringValue}</h4>
+                    <h4>PIN Dispositivo: ${infoDeLaOrden.ContrasenaTel.stringValue}</h4>
+                    <h4>IMEI: ${infoDeLaOrden.IMEI.stringValue}</h4>
+                    <h4>Entrega estimada: ${infoDeLaOrden.EntregaEstimada.stringValue}</h4>
+                    <h4>Defecto: ${infoDeLaOrden.Defecto.stringValue}</h4>
+                    <h4>Condiciones iniciales: ${infoDeLaOrden.EstadoDispositivo.stringValue}</h4>
+                    <h4>Detalle del cliente: ${infoDeLaOrden.InfoCliente.stringValue}</h4>
+                    <h4>Trabajo asigando a: ${infoDeLaOrden.TrabajoAsignadoA.stringValue}</h4>
+                    <h4>Detalles orden: ${infoDeLaOrden.Notas.stringValue}</h4>
+                    <h4 class="estadoOrden">Ultimo estado: ${infoDeLaOrden.Estado.stringValue}</h4>
+                    `)
+                }
+
+                datosOrden()
+              })
+              .catch(function(err){console.log(err);})
+            }) 
+          }
+    })
+    .catch(function(err){console.log(err);})
+}
+

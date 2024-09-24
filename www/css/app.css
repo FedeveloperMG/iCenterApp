@@ -815,6 +815,10 @@ code {
   background-color: #889db6;
   margin: 20px;
 }
+.tarjetaItemOA{
+  background-color: rgb(90, 160, 90);
+  margin: 20px;
+}
 .cajaFiltros{
   display: flex;
   flex-direction: row;
@@ -846,4 +850,16 @@ code {
 .listaRadios{
   display: flex;
   flex-direction: row;
+}
+.cajaInfoOrden{
+  display: flex;
+  flex-direction: row;
+}
+.tituloOrden{
+  padding-left: 10px;
+}
+.estadoOrden{
+  font-size: 20px;
+  font-weight: bold;
+  color: darkgreen;
 }

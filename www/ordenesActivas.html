@@ -1,0 +1,39 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div id="paginas" class="page" data-name="ordenesActivas">
+
+  <div class="page-content">
+    <div class="block">
+
+      <!-- ---------------------------- Titulo página ---------------------------- -->
+      <h1>Ordenes activas del cliente</h1>
+      <!-- --------------------------------- -- ---------------------------------- -->
+      <div class="popup popup-orden">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner">
+              <h2 class="tituloOrden">Detalle Orden <span id="tituloOrden"></span></h2>
+              <div class="right"><a class="link popup-close">Cerrar</a></div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div id="infoOrden" class="block">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ------------------------ Tarjetas de ordenes ------------------------ -->
+      <div class="card-content">
+        <div class="list media-list no-safe-areas">
+          <ul id="listaOrdenes">
+            
+          </ul>
+        </div>
+      </div>
+      <br>
+      <a class="button button-small button-fill" href="/altaOrdenesDeServicio/">Volver</a>
+      <br>
+
+    </div>
+  </div>
