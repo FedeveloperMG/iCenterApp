@@ -863,3 +863,21 @@ code {
   font-weight: bold;
   color: darkgreen;
 }
+.estadoOrdenBtnGestionar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+#cajaSerialNuevaOrden{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.btnGestionar{
+  margin: 10px;
+}
+.btnHistorial{
+  margin: 10px;
+}

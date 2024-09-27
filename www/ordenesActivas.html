@@ -18,16 +18,37 @@
           </div>
           <div class="page-content">
             <div id="infoOrden" class="block">
-              
+            </div>
+            <div id="btnsOrden">
+              <div class="estadoOrdenBtnGestionar">
+                <input id="historialOrden" type="button" value="Historial" class="button button-small button-round button-fill color-black btnHistorial">
+                <input id="gestionarOrden" type="button" value="Gestionar Orden" class="button button-small button-round button-fill color-blue btnGestionar">
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="popup popup-historial">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner">
+              <h2 class="historialOrd">Historial</h2>
+              <div class="right"><a class="link popup-close">Cerrar</a></div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div>
+              <ul id="registroCambios"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- ------------------------ Tarjetas de ordenes ------------------------ -->
       <div class="card-content">
         <div class="list media-list no-safe-areas">
-          <ul id="listaOrdenes">
-            
+          <ul id="listaOrdenes">           
           </ul>
         </div>
       </div>

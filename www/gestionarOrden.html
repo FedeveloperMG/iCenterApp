@@ -1,0 +1,86 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div id="paginas" class="page" data-name="gestionarOrden">
+
+  <div class="page-content">
+    <div class="block">
+      <h1>Nueva orden de servicio</h1>
+
+      <div class="list list-strong-ios list-dividers-ios inset-ios">
+        <ul>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Nueva actualización</div>
+                <div class="item-input-wrap">
+                  <input id="detalleProblemaGestionOrden" type="text" name="Detalle del problema" placeholder="Detalle" />
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Urgencia</div>
+                <div class="item-input-wrap">
+                  <select id="urgenciaGestionOrden" name="Urgencia">
+                    <option selected value="---">---</option>
+                    <option value="BAJA">BAJA</option>
+                    <option value="MEDIA">MEDIA</option>
+                    <option value="ALTA">ALTA</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Asignado a:</div>
+                <div class="item-input-wrap">
+                  <select id="asignadoAGestionOrden" name="Asignado a">
+                    <option selected value="---">---</option>
+                    <option value="Facundo">Facundo</option>
+                    <option value="Luciano">Luciano</option>
+                    <option value="Wilson">Wilson</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Nuevo estado</div>
+                <div class="item-input-wrap">
+                  <select id="nuevoEstadoGestionOrden" name="Nuevo Estado">
+                    <option selected value="---">---</option>
+                    <option value="En reparación">En reparación</option>
+                    <option value="En soldadura">En soldadura</option>
+                    <option value="En espera de repuesto">En espera de repuesto</option>
+                    <option value="Enviado a proveedor externo">Enviado a proveedor externo</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">Entrega estimada</div>
+                <div class="item-input-wrap">
+                  <input id="entregaEstimadaGestionOrden" type="date" name="Detalle del problema"/>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <br>
+      <button id="btnActualizarOrden" class="button button-small button-fill btnVisible">Actualizar Orden</button>
+      <br>
+      <a class="button button-small button-fill" href="/ordenesActivas/">Volver</a>
+      <br>
+
+    </div>
+  </div>

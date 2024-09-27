@@ -23,6 +23,8 @@ var app = new Framework7({
     { path: '/funcionesTecnico/', url: 'funcionesTecnico.html', options: { transition: 'f7-cover' } },
     { path: '/ordenesActivas/', url: 'ordenesActivas.html', options: { transition: 'f7-cover' } },
     { path: '/detalleOrden/', url: 'detalleOrden.html', options: { transition: 'f7-cover' } },
+    { path: '/altaOtroDispositivo/', url: 'altaOtroDispositivo.html', options: { transition: 'f7-cover' } },
+    { path: '/gestionarOrden/', url: 'gestionarOrden.html', options: { transition: 'f7-cover' } },
   ]
   // ... other parameters
 });
@@ -41,7 +43,7 @@ $$(document).on('page:init', function (e) {
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$("#btnInicioSesion").on('click', inicioSesion)
-  //$$("#prueba").on('click', algo)
+  $$("#prueba").on('click', algo)
 })
 
 $$(document).on('page:init', '.page[data-name="funcionesAdmin"]', function (e) {
@@ -51,44 +53,44 @@ $$(document).on('page:init', '.page[data-name="funcinesTecnico"]', function (e) 
 
 $$(document).on('page:init', '.page[data-name="altaCliente"]', function (e) {
   $$("#btnAddCliente").on('click', añadirCliente)
+  //resetForm()
 })
 $$(document).on('page:init', '.page[data-name="altaDispositivo"]', function (e) {
   $$("#btnAddDispositivo").on('click', añadirNuevoDispositivo)
+  traerDispositivos()
+
 })
 $$(document).on('page:init', '.page[data-name="altaOrdenesDeServicio"]', function (e) {
   $$("#btnBuscarCliente").on("click", buscarCliente);
+  
 })
 $$(document).on('page:init', '.page[data-name="nuevaOrden"]', function (e) {
   traerSerialsDispositivos();
   traerDefectos()
   $$("#serialNuevaOrden").on('change', traerDatosDispositivo)
-  $$("#btnCargarOrden").on('click', cargarNuevaOrden)
+  $$("#btnCargarOrden").on('click', cargarNuevaOrden)  
   
 })
 $$(document).on('page:init', '.page[data-name="ordenesActivas"]', function (e) {
   listarOrdenes()
+  $$("#historialOrden").on('click', historialOrden)
+  $$("#gestionarOrden").on('click', irGestionOrden)
 })
 $$(document).on('page:init', '.page[data-name="detalleOrden"]', function (e) {
   verDatosOrden()
 })
+$$(document).on('page:init', '.page[data-name="altaOtroDispositivo"]', function (e) {
+  $$("#btnAddOtroDispositivo").on('click', cargarOtroEquipo)
+  traerDispositivos()
+})
+$$(document).on('page:init', '.page[data-name="gestionarOrden"]', function (e) {
+  $$("#btnActualizarOrden").on('click', actualizarOrden)
+})
 
-/* function algo() {
-  defectos = []
-  colDefectos.get()
-  .then(function(res) {
-    res.forEach(function(doc){
-      datos = doc.id
-      defectos.push(datos)
-      console.log(datos);
-    })
-    console.log(defectos);
-    for (i = 0; i < defectos.length; i++) {
-      $$("#defectoNuevaOrden").append(`<option value="${defectos[i]}">${defectos[i]}</option>`)      
-    }
-  
-  })
-  .catch(function(err){console.log(err);})
-} */
+//Función de prueba
+function algo() {
+  console.log(idCliente, dataIdOrdenElegida)
+}
 
 /* -------------------------------- Variables db ------------------------------- */
 
@@ -97,6 +99,7 @@ var colClientes = db.collection('Clientes')
 var colOrdenesServicio = db.collection('OrdenesServicio')
 var colPersonal = db.collection('Personal')
 var colDefectos = db.collection('Defectos')
+var colDispositivos = db.collection('Dispositivos')
 
 /* --------------------------- Variables globales --------------------------- */
 //Variable Fecha
@@ -107,8 +110,10 @@ var nombreNuevoCliente, apellidoNuevoCliente, emailNuevoCliente, tel1NuevoClient
 var idCliente
 //Variables nuevo dispositivo
 var serialNumberNuevoEquipo, modeloNuevoEquipo, passwordNuevoEquipo, motivoIngresoNuevoEquipo, imeiNuevoDispositivo
+//Variables otro dispositivo
+var serialNumberOtroEquipo, modeloOtroEquipo, passwordOtroEquipo, motivoIngresoOtroEquipo, imeiOtroDispositivo, appleIdOtroDispositivo, passAppleIdOtroDispositivo
 //Variables Orden de servicio
-var infoDeLaOrden, verDatosOrden
+var infoDeLaOrden, verDatosOrden, dataIdOrdenElegida
 
 /* -------------------------------- Funciones ------------------------------- */
 //Función para iniciar sesión
@@ -209,7 +214,6 @@ function resetForm() {
 
 //Funcion para añadir un nuevo cliente
 function añadirCliente() {
-  mainView.router.navigate("/altaDispositivo/")
   idCliente = $$("#tel1NuevoCliente").val();
   
 
@@ -252,14 +256,18 @@ function añadirCliente() {
     FechaAlta: fecha
   }
 
-  //Añadiendo a DB nuevo cliente
-  colClientes.doc(idCliente).set(nuevoCliente)
-  .then(function(response) {
-    console.log("Se añadió el nuevo cliente correctamente");
-    mainView.router.navigate("/altaDispositivo/")
-    resetForm()
-  })
-  .catch(function(err){console.log(err);})
+  if ((nombreNuevoCliente || apellidoNuevoCliente || emailNuevoCliente || appleIDNuevoCliente || passwordNuevoCliente || tel1NuevoCliente) == ""){    
+    app.dialog.alert("¡Complete todos los campos del formulario!")
+  }else{
+    //Añadiendo a DB nuevo cliente
+    colClientes.doc(idCliente).set(nuevoCliente)
+    .then(function(response) {
+      console.log("Se añadió el nuevo cliente correctamente");
+      mainView.router.navigate("/altaDispositivo/")
+      
+    })
+    .catch(function(err){console.log(err);})
+  }
 }
 
 //Funcion para agregar nuevos dispositivos al cliente
@@ -282,6 +290,10 @@ function añadirNuevoDispositivo() {
     PasswordApple: passwordNuevoCliente,
   }
 
+  if (serialNumberNuevoEquipo.length == 0 || imeiNuevoDispositivo.length == 0 || modeloNuevoEquipo.length == 0 || passwordNuevoEquipo.length == 0 || motivoIngresoNuevoEquipo.length == 0 || appleIDNuevoCliente.length == 0 || passwordNuevoCliente.length == 0) {    
+    app.dialog.alert("¡Complete todos los campos del formulario!")
+  }else{
+    console.log("Entro al else");
   //Añadiendo a DB nuevo dispositivo
   colClientes.doc(idCliente).collection("Dispositivos").doc(serialNumberNuevoEquipo).set(dispositivo)
   .then(function(response) {
@@ -289,6 +301,7 @@ function añadirNuevoDispositivo() {
     mainView.router.navigate("/funcionesAdmin/")
   })
   .catch(function(err){console.log(err);})
+}
 }
 
 //Función para buscar cliente
@@ -356,18 +369,49 @@ function traerSerialsDispositivos() {
   .catch(function(err){console.log(err);})
 }
 
+//Función para capturar dispositivos disponibles en nueva orden
+function traerDispositivos() {
+  
+  dispositivos = []
+
+  colDispositivos.get()
+  .then(function(res){
+    res.forEach(function(doc){
+      nombreDispositivo = doc.id
+      dispositivos.push(nombreDispositivo)
+    })
+    
+    for(i = 0; i < dispositivos.length; i++){
+      $$("#modeloNuevoDispositivo").append(`<option value="${dispositivos[i]}">${dispositivos[i]}</option>`)
+      $$("#modeloOtroDispositivo").append(`<option value="${dispositivos[i]}">${dispositivos[i]}</option>`)
+    }
+  })
+  .catch(function(err){console.log(err);})
+}
+
 //Función para capturar datos del dispositivo elegido
 function traerDatosDispositivo() {
 
   serialElegido = $$("#serialNuevaOrden").val()
 
-  if(serialElegido == "---"){
+  
+
+  if(serialElegido == "Otro"){
+    $$("#cajaSerialNuevaOrden").html(`<a href="/altaOtroDispositivo/" class="button button-small button-round button-fill color-black">¿Desea agregrar un nuevo dispositivo?</a>`)
+    $$("#modeloNuevaOrden").html(`<option selected value="---">---</option>`)
+    $$("#imeiNuevaOrden").html(`<option selected value="---">---</option>`)
+    $$("#appleIDNuevaOrden").html(`<option selected value="---">---</option>`)
+    $$("#contrasenaAppleIDNuevaOrden").val(`---`)
+    $$("#contrasenaTelNuevaOrden").val(`---`)
+  }else if(serialElegido == "---"){
+    $$("#cajaSerialNuevaOrden").html(``)
     $$("#modeloNuevaOrden").html(`<option selected value="---">---</option>`)
     $$("#imeiNuevaOrden").html(`<option selected value="---">---</option>`)
     $$("#appleIDNuevaOrden").html(`<option selected value="---">---</option>`)
     $$("#contrasenaAppleIDNuevaOrden").val(`---`)
     $$("#contrasenaTelNuevaOrden").val(`---`)
   }else{
+    $$("#cajaSerialNuevaOrden").html(``)
   colClientes.doc(idCliente).collection("Dispositivos").where("SerialNumber","==",serialElegido).get()
   .then(function(res) {
     res.forEach(function(doc){
@@ -392,9 +436,7 @@ function traerDefectos() {
     res.forEach(function(doc){
       datos = doc.id
       defectos.push(datos)
-      console.log(datos);
     })
-    console.log(defectos);
     for (i = 0; i < defectos.length; i++) {
       $$("#defectoNuevaOrden").append(`<option value="${defectos[i]}">${defectos[i]}</option>`)      
     }
@@ -441,12 +483,13 @@ function cargarNuevaOrden() {
     Notas: notasNuevaOrden,
     InfoCliente: infoClienteNuevaOrden,
     //Recibio: userLogged,
-    //Urgencia: urgenciaNuevaOrden,
+    Urgencia: urgenciaNuevaOrden,
     FechaIngreso: fecha,
-    TrabajoAsignadoA: "",
+    TrabajoAsignadoA: "Sin asignar",
     Estado: "Ingresado",
-    EntregaEstimada: "",
-    EstadoDispositivo: estadoDispositivo
+    EntregaEstimada: "A definir",
+    EstadoDispositivo: estadoDispositivo,
+    Historial: `${fecha} Orden ingresada - Detalle: ${notasNuevaOrden}.`
 
   }
 
@@ -466,7 +509,6 @@ function cargarNuevaOrden() {
   })
   .catch(function(err){console.log(err);})
 }else{
-
   app.dialog.alert("¡Complete todos los campos del formulario!")
 }
 }
@@ -479,9 +521,6 @@ function listarOrdenes (){
     colClientes.doc(idCliente).collection("OrdenesDeServicio").where("Estado","==","activa").get()
     .then(function(response) {
       response.forEach(doc => {
-
-        console.log(doc.id);
-        console.log(doc.data());
 
         ordenes.push(doc.id);
 
@@ -500,19 +539,6 @@ function listarOrdenes (){
                 </div>
             </a>`)
 
-            {/* <a class="button button-fill popup-open" data-popup=".popup-orden">ABRIR ORDEN
-              <a id="${ordenes[i]}" class="item-content tarjetaItemOA">
-                <div class="item-media"><img src="./img/clientes.png" width="44" />
-                </div>
-                <div class="item-inner">
-                  <div class="item-title-row">
-                    <div class="item-title">Orden N° - ${ordenes[i]}</div>
-                  </div>
-                  <div class="item-subtitle">Ver Orden</div>
-                </div>
-              </a>
-            </a> */}
-
           btnOrdenesActivas.data("valorId", `${ordenes[i]}`)
           
           $$("#listaOrdenes").append(btnOrdenesActivas)
@@ -520,9 +546,9 @@ function listarOrdenes (){
             btnOrdenesActivas.data("valorId", `${ordenes[i]}`)
       
             btnOrdenesActivas.on("click", function () {
-              var dataId = $$(this).data("valorId")
+              dataIdOrdenElegida = $$(this).data("valorId")
               
-              colOrdenesServicio.doc(dataId).get()
+              colOrdenesServicio.doc(dataIdOrdenElegida).get()
               .then(function(res){
                 
                 infoDeLaOrden = res._delegate._document.data.value.mapValue.fields
@@ -530,7 +556,7 @@ function listarOrdenes (){
                 problemaOrden = infoDeLaOrden.Defecto.stringValue
 
                function datosOrden() {
-                 $$("#tituloOrden").text(`${dataId}`)
+                 $$("#tituloOrden").text(`${dataIdOrdenElegida}`)
                   $$("#infoOrden").html(`
                     <h4>Modelo: ${infoDeLaOrden.Modelo.stringValue}</h4>
                     <h4>Numero de serie: ${infoDeLaOrden.NroSerie.stringValue}</h4>
@@ -557,3 +583,127 @@ function listarOrdenes (){
     .catch(function(err){console.log(err);})
 }
 
+//Función para agregar un nuevo dispositivo inexistente
+function cargarOtroEquipo() {
+
+  modeloOtroEquipo = $$("#modeloOtroDispositivo").val()
+  serialNumberOtroEquipo = $$("#serialNumberOtroDispositivo").val()
+  imeiOtroDispositivo = $$("#imeiOtroDispositivo").val()
+  passwordOtroEquipo = $$("#passOtroDispositivo").val()
+  motivoIngresoOtroEquipo = $$("#motivoOtroDispositivo").val()
+  appleIdOtroDispositivo = $$("#appleIdOtroDispositivo").val()
+  passAppleIdOtroDispositivo = $$("#passAppleIdOtroDispositivo").val()
+
+  //Objeto nuevo dispositivo
+  dispositivo = {
+    SerialNumber: serialNumberOtroEquipo,
+    IMEI: imeiOtroDispositivo,
+    Modelo: modeloOtroEquipo,
+    PasswordTelefono: passwordOtroEquipo,
+    MotivoIngreso: motivoIngresoOtroEquipo,
+    AppleID: appleIdOtroDispositivo,
+    PasswordApple: passAppleIdOtroDispositivo,
+  }
+
+  if (serialNumberOtroEquipo.length == 0 || imeiOtroDispositivo.length == 0 || modeloOtroEquipo.length == 0 || passwordOtroEquipo.length == 0 || motivoIngresoOtroEquipo.length == 0 || appleIdOtroDispositivo.length == 0 || passAppleIdOtroDispositivo.length == 0) {    
+    app.dialog.alert("¡Complete todos los campos del formulario!")
+  }else{
+  //Añadiendo a DB nuevo dispositivo
+  colClientes.doc(idCliente).collection("Dispositivos").doc(serialNumberOtroEquipo).set(dispositivo)
+  .then(function(response) {
+    console.log("Se añadió el nuevo dispositivo correctamente");
+    mainView.router.navigate("/nuevaOrden/")
+  })
+  .catch(function(err){console.log(err);})
+}
+  
+}
+
+//Función para modificar orden de servicio
+function irGestionOrden() {
+  app.popup.close($$(".popup-orden"))
+  mainView.router.navigate("/gestionarOrden/")
+}
+function historialOrden() {
+
+  colOrdenesServicio.doc(dataIdOrdenElegida).get()
+  .then(function(response) {
+    //console.log(response.data());
+    data = response.data()
+    lineasHistorial = data.Historial
+
+    arrayLineasHistorial = lineasHistorial.split("*")
+
+    $$("#registroCambios").html("")
+    
+    for (i = 0; i < arrayLineasHistorial.length-1; i++) {
+      textoLog = `<li>${arrayLineasHistorial[i]}</li>`
+      $$("#registroCambios").append(textoLog)
+    }
+    
+    app.popup.open($$('.popup-historial'),
+    {
+      swipeToClose: true,
+      push: true,
+    });
+
+  })
+  .catch(function(err){console.log(err);console.log(err.message)})
+}
+
+//Función para actualizar la orden de servicio
+function actualizarOrden() {
+  //console.log(idCliente, dataIdOrdenElegida)
+
+  detalleProblemaGestionOrden = $$("#detalleProblemaGestionOrden").val()
+  urgenciaGestionOrden = $$("#urgenciaGestionOrden").val()
+  asignadoAGestionOrden = $$("#asignadoAGestionOrden").val()
+  nuevoEstadoGestionOrden = $$("#nuevoEstadoGestionOrden").val()
+  entregaEstimadaGestionOrden = $$("#entregaEstimadaGestionOrden").val()
+
+  tomarFecha()
+
+  colOrdenesServicio.doc(dataIdOrdenElegida).get()
+  .then(function(response) {
+    console.log(response.data());
+    console.log(response.id);
+
+    datos = response.data()
+
+    //Actualizando historial de orden
+    logCompleto = datos.Historial
+
+    logActualizado = `${logCompleto} ${fecha} ${nuevoEstadoGestionOrden} - Detalle: ${detalleProblemaGestionOrden}*`
+
+
+
+    response.ref.update({ Notas: detalleProblemaGestionOrden, EntregaEstimada: entregaEstimadaGestionOrden, Estado: nuevoEstadoGestionOrden, TrabajoAsignadoA: asignadoAGestionOrden, Urgencia: urgenciaGestionOrden, Historial: logActualizado})
+    .then(function(response) {
+    console.log("La orden fue actualizada correctamente");
+    mainView.router.navigate("/ordenesActivas/")
+    })
+    .catch(function(err){console.log(err);console.log(err.message)})
+  })
+  .catch(function(err){console.log(err);console.log(err.message)})
+}
+
+
+
+
+
+//Función para cargar datos en DB
+function subirDatos() {
+
+  users = [{nombre}
+    ]
+
+    for (const datos of dispositivos) {
+      colDispositivos.doc(datos).set({Estado: "Vigente"})
+      .then(function(res) {
+        console.log("Carga OK");
+      })
+      .catch(function(err){console.log(err);})
+      
+    }
+
+}
