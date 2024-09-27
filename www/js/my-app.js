@@ -637,7 +637,7 @@ function historialOrden() {
     $$("#registroCambios").html("")
     
     for (i = 0; i < arrayLineasHistorial.length-1; i++) {
-      textoLog = `<li>${arrayLineasHistorial[i]}</li>`
+      textoLog = `<li>${arrayLineasHistorial[i]}</li> `
       $$("#registroCambios").append(textoLog)
     }
     
